@@ -73,6 +73,6 @@ li {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  transition: 1s transform ease;
+  transition: 1s;
   padding: 0;
 }
