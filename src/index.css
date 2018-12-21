@@ -25,4 +25,24 @@ ul {
 }
 li {
   width: 20%;
+  text-align: center;
+}
+.App ul {
+  margin: 20px auto;
+  max-width: 1200px;
+  width: 100%;
+}
+.App img.found {
+  -webkit-transform: scaleX(1);
+  transform: scaleX(1);
+  background: green;
+  border-radius: 10px;
+}
+.App img.Selected {
+  transform: scaleX(1);
+}
+.App img {
+  transform: scaleX(-1);
+  transition: 1s transform ease;
+  padding: 4px;
 }
