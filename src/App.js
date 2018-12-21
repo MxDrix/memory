@@ -56,11 +56,13 @@ class Memory extends Component {
   }
   render() {
     let cardsListe = this.props.cards.map((card, index) => 
-      <li key={card.code} 
-      onClick={this.toggleClass}><img alt={card.suit+' - '+card.value} id={index} data-code={card.code} src={card.images.png}/></li>)
+      <li key={card.code} onClick={this.toggleClass} id={index} data-code={card.code}>
+        <img className="cardFace" alt={card.suit+' - '+card.value} src={card.images.png}/>
+        <img className="cardBack" alt="back of a card" src="/images/dos.png"/> 
+        </li>)
     return (
       <div className="App">
-        <div className="historque">
+        <div className="historique">
           Victoire : {this.state.win}
         </div>
         <ul>{cardsListe}</ul>
