@@ -10,12 +10,29 @@ class Memory extends Component {
       this.state = {
         isSelected: [],
         isFound: [],
+        error: 0,
         win: 0
       };
       this.toggleClass= this.toggleClass.bind(this);
+      this.resetGame= this.resetGame.bind(this);
   }
   componentDidMount() {
     this.props.getCards()
+  }
+  resetGame = (e) => {
+    var win;
+    if(this.state.win > 0){
+      win = this.state.win;
+    }else{
+      win =  0;
+    }
+    this.setState({ 
+      isFound: [],
+      isSelected:  [],
+      win: win
+     }); 
+     document.getElementById("list_of_cards").innerHTML = "";
+     this.componentDidMount();
   }
   toggleClass = (e) => {
     if(this.state.isSelected.length <= 1){
@@ -43,10 +60,16 @@ class Memory extends Component {
               }
             }else{
               console.log("not found");
-              if(this.state.isSelected[1]){
-                document.getElementById(this.state.isSelected[0].id).className = "";
-                document.getElementById(this.state.isSelected[1].id).className = "";
-                this.setState({ isSelected:  [] });  
+              this.setState({
+                error: this.state.error + 1
+              })
+              if(this.state.isSelected[1]){       
+                setTimeout( function() {
+                    document.getElementById(this.state.isSelected[0].id).className = "";
+                    document.getElementById(this.state.isSelected[1].id).className = "";  
+                    this.setState({ isSelected:  [] });
+                }.bind(this),
+                2000);
               }
             }
           }
@@ -56,16 +79,22 @@ class Memory extends Component {
   }
   render() {
     let cardsListe = this.props.cards.map((card, index) => 
-      <li key={card.code} onClick={this.toggleClass} id={index} data-code={card.code}>
+      <li key={index} onClick={this.toggleClass} id={index} data-code={card.code}>
         <img className="cardFace" alt={card.suit+' - '+card.value} src={card.images.png}/>
         <img className="cardBack" alt="back of a card" src="/images/dos.png"/> 
         </li>)
     return (
       <div className="App">
         <div className="historique">
-          Victoire : {this.state.win}
+          <div className="memory_info">
+            <div> Victoire : {this.state.win}</div>
+            <div> Errors : {this.state.error}</div>
+          </div>
+          <div className="btn">
+            <button onClick={this.resetGame}>Restart</button>
+          </div>
         </div>
-        <ul>{cardsListe}</ul>
+        <ul id="list_of_cards">{cardsListe}</ul>
       </div>
     );
   }

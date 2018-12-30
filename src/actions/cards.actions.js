@@ -5,7 +5,7 @@ export const getCards = () => {
     fetch(`https://deckofcardsapi.com/api/deck/2892nnuhbrt3/draw/?count=5`)
       .then(res => res.json())
       .then(cards => {
-        if(cards.remaining == 0){
+        if(cards.remaining === 0){
           fetch(`https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1`)
             .then(res => res.json())
             .then(newID => {              
